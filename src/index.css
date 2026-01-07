@@ -1,96 +1,78 @@
+@import "@fontsource/orbitron/400.css";
+@import "@fontsource/orbitron/700.css";
+@import "@fontsource/orbitron/900.css";
+@import "@fontsource/jetbrains-mono/400.css";
+@import "@fontsource/jetbrains-mono/700.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* TAMV MD-X4™ SOVEREIGN DESIGN SYSTEM
+   Obsidian & Imperial Gold - The Korima Federation */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    /* Core Sovereign Palette */
+    --background: 0 0% 1%;
+    --foreground: 45 6% 90%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card: 0 0% 4%;
+    --card-foreground: 45 6% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 6%;
+    --popover-foreground: 45 6% 90%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Imperial Gold - Primary */
+    --primary: 43 74% 53%;
+    --primary-foreground: 0 0% 2%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Obsidian Surface */
+    --secondary: 0 0% 8%;
+    --secondary-foreground: 45 6% 90%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 45 6% 50%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Turquoise Accent - Isabella */
+    --accent: 168 76% 50%;
+    --accent-foreground: 0 0% 2%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Destructive - Anubis Alert */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 43 30% 15%;
+    --input: 0 0% 10%;
+    --ring: 43 74% 53%;
 
-    --radius: 0.5rem;
+    --radius: 1rem;
 
-    --sidebar-background: 0 0% 98%;
+    /* Sovereign Glass Effect */
+    --glass-bg: rgba(212, 175, 55, 0.03);
+    --glass-border: rgba(212, 175, 55, 0.12);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    /* Gradients */
+    --gradient-gold: linear-gradient(135deg, hsl(43, 74%, 53%) 0%, hsl(38, 85%, 40%) 100%);
+    --gradient-obsidian: linear-gradient(180deg, hsl(0, 0%, 4%) 0%, hsl(0, 0%, 1%) 100%);
+    --gradient-sovereign: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(45, 212, 191, 0.05) 100%);
+    --gradient-chaos: linear-gradient(45deg, hsl(43, 74%, 53%), hsl(168, 76%, 50%), hsl(280, 80%, 50%), hsl(43, 74%, 53%));
 
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    /* Sidebar */
+    --sidebar-background: 0 0% 3%;
+    --sidebar-foreground: 45 6% 80%;
+    --sidebar-primary: 43 74% 53%;
+    --sidebar-primary-foreground: 0 0% 2%;
+    --sidebar-accent: 0 0% 8%;
+    --sidebar-accent-foreground: 45 6% 90%;
+    --sidebar-border: 43 30% 12%;
+    --sidebar-ring: 43 74% 53%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --background: 0 0% 1%;
+    --foreground: 45 6% 90%;
   }
 }
 
@@ -99,7 +81,148 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  html {
+    scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  /* Sovereign Glass Panel */
+  .glass-sovereign {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+  }
+
+  /* Imperial Gold Glow */
+  .glow-gold {
+    box-shadow: 
+      0 0 20px rgba(212, 175, 55, 0.3),
+      0 0 40px rgba(212, 175, 55, 0.15),
+      0 0 60px rgba(212, 175, 55, 0.05);
+  }
+
+  /* Turquoise Pulse (Isabella Active) */
+  .glow-turquoise {
+    box-shadow: 
+      0 0 15px rgba(45, 212, 191, 0.4),
+      0 0 30px rgba(45, 212, 191, 0.2);
+  }
+
+  /* Chaos Gradient Animation */
+  .animate-chaos {
+    background: var(--gradient-chaos);
+    background-size: 400% 400%;
+    animation: chaos-flow 8s ease infinite;
+  }
+
+  /* Orbitron Display Font */
+  .font-orbitron {
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  /* Mono Data Font */
+  .font-mono-data {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* MSR Value Display */
+  .msr-value {
+    @apply font-orbitron text-primary tracking-wider;
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+  }
+
+  /* Sovereign Button */
+  .btn-sovereign {
+    @apply relative overflow-hidden font-orbitron font-bold uppercase tracking-widest;
+    background: var(--gradient-gold);
+    transition: all 0.3s ease;
+  }
+
+  .btn-sovereign:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 10px 30px rgba(212, 175, 55, 0.3),
+      0 0 50px rgba(212, 175, 55, 0.15);
+  }
+
+  /* Status Indicator */
+  .status-active {
+    @apply relative;
+  }
+
+  .status-active::before {
+    content: '';
+    @apply absolute -left-3 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-accent;
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  /* Grid Pattern Overlay */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Scanline Effect */
+  .scanlines::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.1) 2px,
+      rgba(0, 0, 0, 0.1) 4px
+    );
+  }
+}
+
+@layer utilities {
+  .text-shadow-gold {
+    text-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+  }
+
+  .text-shadow-turquoise {
+    text-shadow: 0 0 20px rgba(45, 212, 191, 0.6);
+  }
+
+  .border-gradient-gold {
+    border-image: var(--gradient-gold) 1;
+  }
+}
+
+/* Keyframes */
+@keyframes chaos-flow {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { 
+    opacity: 1;
+    box-shadow: 0 0 10px rgba(45, 212, 191, 0.8);
+  }
+  50% { 
+    opacity: 0.6;
+    box-shadow: 0 0 20px rgba(45, 212, 191, 0.4);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
 }

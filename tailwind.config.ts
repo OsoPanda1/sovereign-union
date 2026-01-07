@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        orbitron: ['Orbitron', 'sans-serif'],
+        mono: ['JetBrains Mono', 'monospace'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -57,33 +61,90 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // TAMV Custom Colors
+        obsidian: {
+          DEFAULT: "#020202",
+          light: "#0a0a0a",
+          surface: "#111111",
+        },
+        gold: {
+          DEFAULT: "#D4AF37",
+          light: "#E5C76B",
+          dark: "#A68B2C",
+          muted: "rgba(212, 175, 55, 0.3)",
+        },
+        turquoise: {
+          DEFAULT: "#2DD4BF",
+          light: "#5EEAD4",
+          dark: "#14B8A6",
+        },
+        isabella: {
+          DEFAULT: "#2DD4BF",
+          glow: "rgba(45, 212, 191, 0.4)",
+        },
+        anubis: {
+          DEFAULT: "#EF4444",
+          glow: "rgba(239, 68, 68, 0.4)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "2xl": "1.5rem",
+        "3xl": "2rem",
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
+        },
+        "pulse-gold": {
+          "0%, 100%": { 
+            boxShadow: "0 0 20px rgba(212, 175, 55, 0.4)",
+            opacity: "1"
           },
-          to: {
-            height: "0",
+          "50%": { 
+            boxShadow: "0 0 40px rgba(212, 175, 55, 0.6)",
+            opacity: "0.8"
           },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-10px)" },
+        },
+        "shimmer": {
+          "0%": { backgroundPosition: "-200% center" },
+          "100%": { backgroundPosition: "200% center" },
+        },
+        "chaos-rotate": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-gold": "pulse-gold 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "shimmer": "shimmer 3s linear infinite",
+        "chaos-rotate": "chaos-rotate 20s linear infinite",
+      },
+      backgroundImage: {
+        "gradient-gold": "linear-gradient(135deg, #D4AF37 0%, #A68B2C 100%)",
+        "gradient-obsidian": "linear-gradient(180deg, #0a0a0a 0%, #020202 100%)",
+        "gradient-sovereign": "linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(45, 212, 191, 0.05) 100%)",
+        "gradient-radial-gold": "radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%)",
+      },
+      boxShadow: {
+        "gold": "0 0 30px rgba(212, 175, 55, 0.3)",
+        "gold-lg": "0 0 60px rgba(212, 175, 55, 0.4)",
+        "turquoise": "0 0 20px rgba(45, 212, 191, 0.3)",
+        "sovereign": "0 25px 50px -12px rgba(0, 0, 0, 0.8)",
       },
     },
   },
