@@ -1,22 +1,47 @@
 import { motion } from "framer-motion";
-import { Shield, Zap, Wallet, Bell, Menu } from "lucide-react";
+import { Shield, Wallet, Bell, Menu, LogIn, LogOut, User } from "lucide-react";
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { TAMVChaoticEngine } from "@/crypto/chaotic-engine";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 const engine = new TAMVChaoticEngine();
 
 export const SovereignNav = () => {
   const [entropy, setEntropy] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [walletBalance, setWalletBalance] = useState<number | null>(null);
+  const { user, isAuthenticated, signOut } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
       const state = engine.getCurrentState();
       setEntropy(Math.round(state.entropy));
-      engine.generateSequence(1); // Advance chaos
+      engine.generateSequence(1);
     }, 100);
     return () => clearInterval(interval);
   }, []);
+
+  // Fetch wallet balance when authenticated
+  useEffect(() => {
+    if (user) {
+      supabase
+        .from("msr_wallets")
+        .select("balance")
+        .eq("user_id", user.id)
+        .single()
+        .then(({ data }) => {
+          if (data) setWalletBalance(Number(data.balance));
+        });
+    }
+  }, [user]);
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/auth");
+  };
 
   return (
     <motion.nav
@@ -74,27 +99,65 @@ export const SovereignNav = () => {
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
-            {/* MSR Balance */}
-            <motion.div 
-              className="hidden sm:flex items-center gap-2 px-4 py-2 glass-sovereign rounded-xl border border-primary/20"
-              whileHover={{ borderColor: "rgba(212, 175, 55, 0.4)" }}
-            >
-              <Wallet className="w-4 h-4 text-primary" />
-              <span className="font-orbitron text-primary text-sm font-bold">
-                1,240.00
-              </span>
-              <span className="text-[9px] text-muted-foreground">MSR</span>
-            </motion.div>
+            {/* MSR Balance - Only show when authenticated */}
+            {isAuthenticated && (
+              <motion.div 
+                className="hidden sm:flex items-center gap-2 px-4 py-2 glass-sovereign rounded-xl border border-primary/20"
+                whileHover={{ borderColor: "rgba(212, 175, 55, 0.4)" }}
+              >
+                <Wallet className="w-4 h-4 text-primary" />
+                <span className="font-orbitron text-primary text-sm font-bold">
+                  {walletBalance?.toLocaleString("es-ES", { minimumFractionDigits: 2 }) ?? "..."}
+                </span>
+                <span className="text-[9px] text-muted-foreground">MSR</span>
+              </motion.div>
+            )}
 
-            {/* Notifications */}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative p-2 rounded-lg hover:bg-primary/10 transition-colors"
-            >
-              <Bell className="w-5 h-5 text-foreground/70" />
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-accent" />
-            </motion.button>
+            {/* Auth Button */}
+            {isAuthenticated ? (
+              <div className="flex items-center gap-2">
+                <motion.div
+                  className="hidden sm:flex items-center gap-2 px-3 py-2 glass-sovereign rounded-xl border border-primary/10"
+                >
+                  <User className="w-4 h-4 text-accent" />
+                  <span className="text-[10px] text-foreground/70 font-mono">
+                    {user?.email?.split("@")[0]}
+                  </span>
+                </motion.div>
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleSignOut}
+                  className="p-2 rounded-lg hover:bg-destructive/20 transition-colors"
+                  title="Cerrar Sesión"
+                >
+                  <LogOut className="w-5 h-5 text-foreground/70" />
+                </motion.button>
+              </div>
+            ) : (
+              <Link to="/auth">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-gold rounded-xl text-primary-foreground font-orbitron text-xs font-bold shadow-gold"
+                >
+                  <LogIn className="w-4 h-4" />
+                  <span className="hidden sm:inline">INGRESAR</span>
+                </motion.button>
+              </Link>
+            )}
+
+            {/* Notifications - Only when authenticated */}
+            {isAuthenticated && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative p-2 rounded-lg hover:bg-primary/10 transition-colors"
+              >
+                <Bell className="w-5 h-5 text-foreground/70" />
+                <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-accent" />
+              </motion.button>
+            )}
 
             {/* Mobile Menu */}
             <motion.button
