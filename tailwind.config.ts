@@ -61,30 +61,32 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        // TAMV Custom Colors
-        obsidian: {
-          DEFAULT: "#020202",
-          light: "#0a0a0a",
-          surface: "#111111",
-        },
+        // TAMV HYPERREAL GOLD SYSTEM
         gold: {
-          DEFAULT: "#D4AF37",
-          light: "#E5C76B",
-          dark: "#A68B2C",
-          muted: "rgba(212, 175, 55, 0.3)",
+          DEFAULT: "hsl(45, 92%, 58%)",
+          highlight: "hsl(50, 100%, 72%)",
+          base: "hsl(45, 92%, 58%)",
+          shadow: "hsl(38, 85%, 35%)",
+          deep: "hsl(35, 80%, 22%)",
+          muted: "hsla(45, 92%, 58%, 0.3)",
+        },
+        obsidian: {
+          DEFAULT: "hsl(220, 15%, 3%)",
+          light: "hsl(220, 15%, 8%)",
+          surface: "hsl(220, 12%, 12%)",
         },
         turquoise: {
-          DEFAULT: "#2DD4BF",
-          light: "#5EEAD4",
-          dark: "#14B8A6",
+          DEFAULT: "hsl(168, 84%, 48%)",
+          light: "hsl(168, 80%, 60%)",
+          dark: "hsl(168, 85%, 35%)",
         },
         isabella: {
-          DEFAULT: "#2DD4BF",
-          glow: "rgba(45, 212, 191, 0.4)",
+          DEFAULT: "hsl(168, 84%, 48%)",
+          glow: "hsla(168, 84%, 48%, 0.4)",
         },
         anubis: {
-          DEFAULT: "#EF4444",
-          glow: "rgba(239, 68, 68, 0.4)",
+          DEFAULT: "hsl(0, 72%, 51%)",
+          glow: "hsla(0, 72%, 51%, 0.4)",
         },
       },
       borderRadius: {
@@ -93,6 +95,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
         "2xl": "1.5rem",
         "3xl": "2rem",
+        "4xl": "2.5rem",
       },
       keyframes: {
         "accordion-down": {
@@ -103,14 +106,20 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "pulse-gold": {
+        "gold-shine": {
+          "0%": { backgroundPosition: "200% center" },
+          "100%": { backgroundPosition: "-200% center" },
+        },
+        "gold-flow": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "glow-pulse": {
           "0%, 100%": { 
-            boxShadow: "0 0 20px rgba(212, 175, 55, 0.4)",
-            opacity: "1"
+            boxShadow: "0 0 20px hsla(45, 92%, 58%, 0.4), 0 0 40px hsla(45, 92%, 58%, 0.2)",
           },
           "50%": { 
-            boxShadow: "0 0 40px rgba(212, 175, 55, 0.6)",
-            opacity: "0.8"
+            boxShadow: "0 0 40px hsla(45, 92%, 58%, 0.6), 0 0 80px hsla(45, 92%, 58%, 0.3)",
           },
         },
         "float": {
@@ -129,22 +138,27 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "pulse-gold": "pulse-gold 3s ease-in-out infinite",
+        "gold-shine": "gold-shine 4s ease-in-out infinite",
+        "gold-flow": "gold-flow 6s ease infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
         "shimmer": "shimmer 3s linear infinite",
         "chaos-rotate": "chaos-rotate 20s linear infinite",
       },
       backgroundImage: {
-        "gradient-gold": "linear-gradient(135deg, #D4AF37 0%, #A68B2C 100%)",
-        "gradient-obsidian": "linear-gradient(180deg, #0a0a0a 0%, #020202 100%)",
-        "gradient-sovereign": "linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(45, 212, 191, 0.05) 100%)",
-        "gradient-radial-gold": "radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%)",
+        "gradient-gold": "linear-gradient(135deg, hsl(50, 100%, 72%) 0%, hsl(45, 92%, 58%) 50%, hsl(38, 85%, 40%) 100%)",
+        "gradient-gold-metallic": "linear-gradient(180deg, hsl(50, 100%, 75%) 0%, hsl(45, 95%, 55%) 40%, hsl(38, 85%, 40%) 100%)",
+        "gradient-obsidian": "linear-gradient(180deg, hsl(220, 15%, 8%) 0%, hsl(220, 15%, 3%) 100%)",
+        "gradient-sovereign": "linear-gradient(135deg, hsla(45, 92%, 58%, 0.15) 0%, hsla(168, 84%, 48%, 0.05) 100%)",
+        "gradient-radial-gold": "radial-gradient(circle at center, hsla(45, 92%, 58%, 0.15) 0%, transparent 70%)",
       },
       boxShadow: {
-        "gold": "0 0 30px rgba(212, 175, 55, 0.3)",
-        "gold-lg": "0 0 60px rgba(212, 175, 55, 0.4)",
-        "turquoise": "0 0 20px rgba(45, 212, 191, 0.3)",
+        "gold": "0 0 30px hsla(45, 92%, 58%, 0.3)",
+        "gold-lg": "0 0 60px hsla(45, 92%, 58%, 0.4)",
+        "gold-3d": "0 4px 15px hsla(45, 92%, 58%, 0.3), 0 2px 4px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.25)",
+        "turquoise": "0 0 20px hsla(168, 84%, 48%, 0.3)",
         "sovereign": "0 25px 50px -12px rgba(0, 0, 0, 0.8)",
+        "card-hover": "0 20px 60px rgba(0, 0, 0, 0.6), 0 0 50px hsla(45, 92%, 58%, 0.1)",
       },
     },
   },
