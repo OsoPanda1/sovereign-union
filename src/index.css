@@ -198,6 +198,14 @@
   .border-gradient-gold {
     border-image: var(--gradient-gold) 1;
   }
+
+  .shadow-gold {
+    box-shadow: 0 10px 40px -10px rgba(212, 175, 55, 0.4);
+  }
+
+  .shadow-turquoise {
+    box-shadow: 0 10px 40px -10px rgba(45, 212, 191, 0.3);
+  }
 }
 
 /* Keyframes */
@@ -225,4 +233,71 @@
 @keyframes shimmer {
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
+}
+
+/* Stories/Reels Style Scrollbar (Instagram/TikTok) */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth Horizontal Scroll */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.scroll-snap-start {
+  scroll-snap-align: start;
+}
+
+/* Gradient Text */
+.gradient-text-gold {
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card Hover Effect (Pinterest/Dribbble style) */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+}
+
+/* Floating Action Button */
+.fab-glow {
+  box-shadow: 
+    0 4px 20px rgba(212, 175, 55, 0.4),
+    0 0 0 0 rgba(212, 175, 55, 0.4);
+  animation: fab-pulse 2s ease-in-out infinite;
+}
+
+@keyframes fab-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 20px rgba(212, 175, 55, 0.4),
+      0 0 0 0 rgba(212, 175, 55, 0.4);
+  }
+  50% {
+    box-shadow: 
+      0 4px 20px rgba(212, 175, 55, 0.6),
+      0 0 0 10px rgba(212, 175, 55, 0);
+  }
+}
+
+/* Glassmorphism Enhanced */
+.glass-enhanced {
+  background: rgba(5, 5, 5, 0.6);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(212, 175, 55, 0.08);
 }
