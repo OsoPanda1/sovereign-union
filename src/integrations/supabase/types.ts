@@ -14,6 +14,30 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_roles: {
+        Row: {
+          granted_at: string
+          granted_by: string | null
+          id: string
+          role: Database["public"]["Enums"]["admin_role"]
+          user_id: string
+        }
+        Insert: {
+          granted_at?: string
+          granted_by?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["admin_role"]
+          user_id: string
+        }
+        Update: {
+          granted_at?: string
+          granted_by?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["admin_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
       citizen_profiles: {
         Row: {
           avatar_url: string | null
@@ -70,6 +94,139 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      deployments: {
+        Row: {
+          commit_hash: string | null
+          completed_at: string | null
+          created_at: string
+          deployed_by: string | null
+          environment: Database["public"]["Enums"]["environment_type"]
+          id: string
+          logs: string | null
+          repository_id: string | null
+          started_at: string
+          status: Database["public"]["Enums"]["deployment_status"]
+          version: string
+        }
+        Insert: {
+          commit_hash?: string | null
+          completed_at?: string | null
+          created_at?: string
+          deployed_by?: string | null
+          environment: Database["public"]["Enums"]["environment_type"]
+          id?: string
+          logs?: string | null
+          repository_id?: string | null
+          started_at?: string
+          status?: Database["public"]["Enums"]["deployment_status"]
+          version: string
+        }
+        Update: {
+          commit_hash?: string | null
+          completed_at?: string | null
+          created_at?: string
+          deployed_by?: string | null
+          environment?: Database["public"]["Enums"]["environment_type"]
+          id?: string
+          logs?: string | null
+          repository_id?: string | null
+          started_at?: string
+          status?: Database["public"]["Enums"]["deployment_status"]
+          version?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deployments_repository_id_fkey"
+            columns: ["repository_id"]
+            isOneToOne: false
+            referencedRelation: "repositories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documentation: {
+        Row: {
+          content: string | null
+          created_at: string
+          created_by: string | null
+          doc_type: string | null
+          id: string
+          is_published: boolean | null
+          layer: Database["public"]["Enums"]["tamv_layer"] | null
+          title: string
+          updated_at: string
+          version: string | null
+        }
+        Insert: {
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          doc_type?: string | null
+          id?: string
+          is_published?: boolean | null
+          layer?: Database["public"]["Enums"]["tamv_layer"] | null
+          title: string
+          updated_at?: string
+          version?: string | null
+        }
+        Update: {
+          content?: string | null
+          created_at?: string
+          created_by?: string | null
+          doc_type?: string | null
+          id?: string
+          is_published?: boolean | null
+          layer?: Database["public"]["Enums"]["tamv_layer"] | null
+          title?: string
+          updated_at?: string
+          version?: string | null
+        }
+        Relationships: []
+      }
+      env_configs: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          environment: Database["public"]["Enums"]["environment_type"]
+          id: string
+          is_secret: boolean | null
+          key: string
+          repository_id: string | null
+          updated_at: string
+          value: string
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          environment: Database["public"]["Enums"]["environment_type"]
+          id?: string
+          is_secret?: boolean | null
+          key: string
+          repository_id?: string | null
+          updated_at?: string
+          value: string
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          environment?: Database["public"]["Enums"]["environment_type"]
+          id?: string
+          is_secret?: boolean | null
+          key?: string
+          repository_id?: string | null
+          updated_at?: string
+          value?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "env_configs_repository_id_fkey"
+            columns: ["repository_id"]
+            isOneToOne: false
+            referencedRelation: "repositories"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       lottery_rounds: {
         Row: {
@@ -135,6 +292,50 @@ export type Database = {
             columns: ["round_id"]
             isOneToOne: false
             referencedRelation: "lottery_rounds"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      modules: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          layer: Database["public"]["Enums"]["tamv_layer"]
+          name: string
+          progress: number | null
+          repository_id: string | null
+          status: Database["public"]["Enums"]["item_status"]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          layer: Database["public"]["Enums"]["tamv_layer"]
+          name: string
+          progress?: number | null
+          repository_id?: string | null
+          status?: Database["public"]["Enums"]["item_status"]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          layer?: Database["public"]["Enums"]["tamv_layer"]
+          name?: string
+          progress?: number | null
+          repository_id?: string | null
+          status?: Database["public"]["Enums"]["item_status"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "modules_repository_id_fkey"
+            columns: ["repository_id"]
+            isOneToOne: false
+            referencedRelation: "repositories"
             referencedColumns: ["id"]
           },
         ]
@@ -231,6 +432,45 @@ export type Database = {
           },
         ]
       }
+      repositories: {
+        Row: {
+          created_at: string
+          created_by: string | null
+          description: string | null
+          id: string
+          layer: Database["public"]["Enums"]["tamv_layer"]
+          name: string
+          stack: string[] | null
+          status: Database["public"]["Enums"]["item_status"]
+          updated_at: string
+          url: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          layer: Database["public"]["Enums"]["tamv_layer"]
+          name: string
+          stack?: string[] | null
+          status?: Database["public"]["Enums"]["item_status"]
+          updated_at?: string
+          url?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          id?: string
+          layer?: Database["public"]["Enums"]["tamv_layer"]
+          name?: string
+          stack?: string[] | null
+          status?: Database["public"]["Enums"]["item_status"]
+          updated_at?: string
+          url?: string | null
+        }
+        Relationships: []
+      }
       social_posts: {
         Row: {
           author_id: string
@@ -291,6 +531,59 @@ export type Database = {
         }
         Relationships: []
       }
+      tasks: {
+        Row: {
+          assigned_to: string | null
+          completed_at: string | null
+          created_at: string
+          created_by: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          module_id: string | null
+          priority: Database["public"]["Enums"]["task_priority"]
+          status: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          module_id?: string | null
+          priority?: Database["public"]["Enums"]["task_priority"]
+          status?: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assigned_to?: string | null
+          completed_at?: string | null
+          created_at?: string
+          created_by?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          module_id?: string | null
+          priority?: Database["public"]["Enums"]["task_priority"]
+          status?: Database["public"]["Enums"]["task_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_module_id_fkey"
+            columns: ["module_id"]
+            isOneToOne: false
+            referencedRelation: "modules"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -305,6 +598,13 @@ export type Database = {
         }
         Returns: undefined
       }
+      has_admin_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["admin_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
       has_citizen_role: {
         Args: {
           _role: Database["public"]["Enums"]["citizen_role"]
@@ -312,9 +612,20 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_admin: { Args: { _user_id: string }; Returns: boolean }
     }
     Enums: {
+      admin_role: "superadmin" | "admin" | "operator" | "viewer"
       citizen_role: "citizen" | "guardian" | "architect" | "sovereign"
+      deployment_status:
+        | "pending"
+        | "building"
+        | "deploying"
+        | "success"
+        | "failed"
+        | "rollback"
+      environment_type: "development" | "staging" | "production"
+      item_status: "active" | "inactive" | "pending" | "archived"
       msr_transaction_type:
         | "EARNING"
         | "RESILIENCE"
@@ -323,6 +634,16 @@ export type Database = {
         | "LOTTERY_TICKET"
         | "LOTTERY_WIN"
         | "COURSE_REWARD"
+      tamv_layer:
+        | "identity"
+        | "communication"
+        | "information"
+        | "intelligence"
+        | "economy"
+        | "governance"
+        | "documentation"
+      task_priority: "critical" | "high" | "medium" | "low"
+      task_status: "todo" | "in_progress" | "review" | "done" | "blocked"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -450,7 +771,18 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
+      admin_role: ["superadmin", "admin", "operator", "viewer"],
       citizen_role: ["citizen", "guardian", "architect", "sovereign"],
+      deployment_status: [
+        "pending",
+        "building",
+        "deploying",
+        "success",
+        "failed",
+        "rollback",
+      ],
+      environment_type: ["development", "staging", "production"],
+      item_status: ["active", "inactive", "pending", "archived"],
       msr_transaction_type: [
         "EARNING",
         "RESILIENCE",
@@ -460,6 +792,17 @@ export const Constants = {
         "LOTTERY_WIN",
         "COURSE_REWARD",
       ],
+      tamv_layer: [
+        "identity",
+        "communication",
+        "information",
+        "intelligence",
+        "economy",
+        "governance",
+        "documentation",
+      ],
+      task_priority: ["critical", "high", "medium", "low"],
+      task_status: ["todo", "in_progress", "review", "done", "blocked"],
     },
   },
 } as const
