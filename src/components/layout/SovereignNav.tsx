@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { Shield, Wallet, Bell, Menu, LogIn, LogOut, User, Zap } from "lucide-react";
+ import { Shield, Wallet, Bell, Menu, LogIn, LogOut, User, Home, ShoppingBag, GraduationCap, Sparkles, Bot } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { TAMVChaoticEngine } from "@/crypto/chaotic-engine";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
@@ -14,6 +14,15 @@ export const SovereignNav = () => {
   const [walletBalance, setWalletBalance] = useState<number | null>(null);
   const { user, isAuthenticated, signOut } = useAuth();
   const navigate = useNavigate();
+   const location = useLocation();
+ 
+   const navLinks = [
+     { path: "/nexus", label: "Nexus", icon: Home },
+     { path: "/marketplace", label: "Market", icon: ShoppingBag },
+     { path: "/university", label: "Univ", icon: GraduationCap },
+     { path: "/dreamspaces", label: "XR", icon: Sparkles },
+     { path: "/isabella", label: "Isabella", icon: Bot },
+   ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -87,23 +96,21 @@ export const SovereignNav = () => {
           </motion.div>
 
           {/* Center Status Indicators */}
-          <div className="hidden lg:flex items-center gap-10">
-            <StatusIndicator 
-              label="ISABELLA" 
-              value="ACTIVE" 
-              color="turquoise" 
-            />
-            <StatusIndicator 
-              label="ANUBIS" 
-              value="GUARDING" 
-              color="gold" 
-            />
-            <StatusIndicator 
-              label="ENTROPY" 
-              value={`${entropy}%`} 
-              color="turquoise"
-              animate 
-            />
+           <div className="hidden lg:flex items-center gap-2">
+             {navLinks.map((link) => (
+               <Link
+                 key={link.path}
+                 to={link.path}
+                 className={`flex items-center gap-2 px-3 py-2 rounded-xl text-xs transition-all ${
+                   location.pathname === link.path
+                     ? "bg-primary/15 text-primary border border-primary/30"
+                     : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                 }`}
+               >
+                 <link.icon className="w-4 h-4" />
+                 <span className="font-mono hidden xl:inline">{link.label}</span>
+               </Link>
+             ))}
           </div>
 
           {/* Right Section */}
