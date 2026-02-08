@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://tamv.online/schemas/events/envelope.v1.json",
+  "title": "TAMV Event Envelope",
+  "description": "Envelope común para todos los eventos del bus de la Capa 7 Federada",
+  "type": "object",
+  "required": ["eventId", "sourceFederation", "type", "payload", "ts", "version"],
+  "properties": {
+    "eventId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Identificador único del evento"
+    },
+    "sourceFederation": {
+      "type": "string",
+      "enum": ["xr", "economy", "security", "utamv", "identity", "community", "control"],
+      "description": "Federado que emite el evento"
+    },
+    "type": {
+      "type": "string",
+      "pattern": "^[A-Z0-9_]+\\.?v?[0-9]*$",
+      "description": "Tipo de evento (ej. POST_CREATED, TIP_SENT)"
+    },
+    "entityId": {
+      "type": "string",
+      "description": "ID del recurso principal (post_id, user_id, session_id)"
+    },
+    "payload": {
+      "type": "object",
+      "description": "Cuerpo del evento; esquema depende de type"
+    },
+    "ts": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Timestamp de emisión ISO8601"
+    },
+    "traceId": {
+      "type": "string",
+      "description": "Id de traza (OpenTelemetry/W3C)"
+    },
+    "version": {
+      "type": "string",
+      "description": "Versión del esquema del envelope (ej. 1)"
+    }
+  }
+}
