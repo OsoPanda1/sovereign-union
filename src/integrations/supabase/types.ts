@@ -43,7 +43,9 @@ export type Database = {
           avatar_url: string | null
           bio: string | null
           created_at: string
+          dignity_score_decay: string | null
           display_name: string
+          governance_power: string | null
           id: string
           reputation_score: number
           updated_at: string
@@ -53,7 +55,9 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          dignity_score_decay?: string | null
           display_name: string
+          governance_power?: string | null
           id?: string
           reputation_score?: number
           updated_at?: string
@@ -63,7 +67,9 @@ export type Database = {
           avatar_url?: string | null
           bio?: string | null
           created_at?: string
+          dignity_score_decay?: string | null
           display_name?: string
+          governance_power?: string | null
           id?: string
           reputation_score?: number
           updated_at?: string
@@ -228,6 +234,27 @@ export type Database = {
           },
         ]
       }
+      governance_powers: {
+        Row: {
+          description: string | null
+          id: string
+          level: number
+          name: string
+        }
+        Insert: {
+          description?: string | null
+          id: string
+          level?: number
+          name: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          level?: number
+          name?: string
+        }
+        Relationships: []
+      }
       lottery_rounds: {
         Row: {
           chaos_seed: string | null
@@ -339,6 +366,39 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      msr_events: {
+        Row: {
+          action: string
+          actor_id: string
+          created_at: string
+          entity_id: string | null
+          federation: string | null
+          hash: string
+          id: string
+          payload: Json
+        }
+        Insert: {
+          action: string
+          actor_id: string
+          created_at?: string
+          entity_id?: string | null
+          federation?: string | null
+          hash: string
+          id?: string
+          payload?: Json
+        }
+        Update: {
+          action?: string
+          actor_id?: string
+          created_at?: string
+          entity_id?: string | null
+          federation?: string | null
+          hash?: string
+          id?: string
+          payload?: Json
+        }
+        Relationships: []
       }
       msr_ledger: {
         Row: {
@@ -589,6 +649,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      apply_dignity_decay: { Args: never; Returns: undefined }
       execute_msr_distribution: {
         Args: {
           amount_total: number
@@ -613,6 +674,15 @@ export type Database = {
         Returns: boolean
       }
       is_admin: { Args: { _user_id: string }; Returns: boolean }
+      log_msr_event: {
+        Args: {
+          p_action: string
+          p_actor_id: string
+          p_entity_id?: string
+          p_payload?: Json
+        }
+        Returns: string
+      }
     }
     Enums: {
       admin_role: "superadmin" | "admin" | "operator" | "viewer"
